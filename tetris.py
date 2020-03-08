@@ -12,12 +12,12 @@ os.system('mode con: cols={0} lines={1}'.format(
 ))
 
 # Windows keyboard polling from https://stackoverflow.com/a/303976
-def kbfunc(): 
+def kbfunc():
    x = msvcrt.kbhit()
-   if x: 
-      ret = ord(msvcrt.getch()) 
-   else: 
-      ret = 0 
+   if x:
+      ret = ord(msvcrt.getch())
+   else:
+      ret = 0
    return ret
 
 # Set a direction value according to user input
@@ -188,7 +188,7 @@ while(1):
     else:
         # Restore nextMove because the x translation intersected with already set pieces
         nextMove = [list(part) for part in movingPiece]
-        
+
     # Now translate the copy of the moving piece downwards to check for CD against the bottom and the pieces already set
     for i in nextMove:
         i[1] += 1
@@ -225,23 +225,23 @@ while(1):
             if hitCount == 0:
                 for i in movingPiece:
                     i[1]+= 1
-        
+
     # Set a direction value that will not count until new user input
     direction = -1
 
-    # Drawing   --    FULL BLOCK u"\u2588"   BLACK SQUARE u"\u25A0"     DARK SHADE u"\u2593"    LIGHT SHADE u"\u2591"
+    # Drawing   --   FULL BLOCK u"\u2588"   BLACK SQUARE u"\u25A0"    DARK SHADE u"\u2593"   LIGHT SHADE u"\u2591"
     # Our screen buffer is a list of console rows containing column characters
     sBuffer = [[u"\u2591" if j>1 and j<12 and i>0 else ' ' for j in range(screenSize[0]) ] for i in range(screenSize[1]-1)]
     # Draw moving piece
     for i in movingPiece:
-        sBuffer[i[1]][i[0]] = 	u"\u2593"
+        sBuffer[i[1]][i[0]] = u"\u2593"
     # Draw set pieces
     for i in setPieces:
         for j in i:
-            sBuffer[j[1]][j[0]] = 	u"\u2593"
+            sBuffer[j[1]][j[0]] = u"\u2593"
     # Draw game borders
     for i in range(2,screenSize[1]-1):
-        sBuffer[i][1] = u"\u2502"
+        sBuffer[i][1]  = u"\u2502"
         sBuffer[i][12] = u"\u2502"
     # Draw score text
     for i,c in enumerate(scoreText):
@@ -256,14 +256,14 @@ while(1):
     for i in range(4):
         sBuffer[13+i][17] = u"\u2502"
         sBuffer[13+i][23] = u"\u2502"
-        sBuffer[12][17] =   u"\u250C"
-        sBuffer[17][17] =   u"\u2514"
+        sBuffer[12][17]   = u"\u250C"
+        sBuffer[17][17]   = u"\u2514"
         sBuffer[12][18+i] = u"\u2500"
-        sBuffer[12][22] = u"\u2500"
-        sBuffer[12][23] = u"\u2510"
+        sBuffer[12][22]   = u"\u2500"
+        sBuffer[12][23]   = u"\u2510"
         sBuffer[17][18+i] = u"\u2500"
-        sBuffer[17][22] = u"\u2500"
-        sBuffer[17][23] = u"\u2518"
+        sBuffer[17][22]   = u"\u2500"
+        sBuffer[17][23]   = u"\u2518"
     # Draw next piece
     for i in pieces[nextPiece]:
         sBuffer[i[1]+13][i[0]+13] = u"\u2593"
